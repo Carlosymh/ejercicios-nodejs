@@ -41,6 +41,7 @@ function saludo(){
 }
 Mensaje(saludo);
 
+// funciones flecha
 let Sumar = (num1,num2,callback)=>{
     let resultado = num1 + num2;
     callback(resultado);

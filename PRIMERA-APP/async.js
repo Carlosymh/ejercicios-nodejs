@@ -1,10 +1,7 @@
 function mensaje(){
     return new Promise((resolve, reject) => {
         setTimeout(()=>{
-            if(false){
-                return resolve('Esto se va ejecutar despues de 3 segundos');
-            }
-            return reject('Ocurrio un error');
+            resolve('Esto se va ejecutar despues de 3 segundos');
         },3000);
     })
 }
@@ -16,4 +13,4 @@ async function llamadaAsync(){
 }
 
 
-llamadaAsync().then(res => console.log(res)).catch(err => console.log(err));
+llamadaAsync().then(data => console.log(data)).catch(err => console.log(err));
