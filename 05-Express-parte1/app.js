@@ -1,6 +1,9 @@
 const express = require('express');
+const config = require('config')
 const app = express();
+// const logger=require('./logger');
 const Joi = require('@hapi/joi');
+const morgan = require('morgan');
 const port= process.env.PORT || 3000;
 let users=[
     {id:0, name:"yovani"},
@@ -10,7 +13,26 @@ let users=[
 ];
 
 app.use(express.json());
-//peticion
+
+app.use(express.urlencoded({extended:true}));
+
+// app.use(logger);
+// app.use(express.static('public'));
+
+//Configuration
+
+console.log(`App: ${config.get('name')}`);
+console.log(`BD Server: ${config.get('configBD.host')}`);
+
+
+app.use(morgan('tiny'));
+console.log('morgan abilitado');
+
+app.use(function(req,res,next){
+    console.log('Autenticando ...');
+    next(); 
+});
+
 app.get('/', (req,res)=>{
     return res.send('Hola Mundo desde Express');
 });
