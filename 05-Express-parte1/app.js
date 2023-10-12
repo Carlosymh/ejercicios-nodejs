@@ -1,9 +1,12 @@
+const inicioDebug=require('debug')('app:inicio');
+const DBDebug = require('debug')('app:database');
 const express = require('express');
 const config = require('config')
 const app = express();
 // const logger=require('./logger');
 const Joi = require('@hapi/joi');
 const morgan = require('morgan');
+const { required } = require('joi');
 const port= process.env.PORT || 3000;
 let users=[
     {id:0, name:"yovani"},
@@ -17,16 +20,20 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 // app.use(logger);
-// app.use(express.static('public'));
+app.use(express.static('public'));
 
 //Configuration
 
 console.log(`App: ${config.get('name')}`);
 console.log(`BD Server: ${config.get('configBD.host')}`);
+DBDebug('conectando con la base de datos');
 
-
-app.use(morgan('tiny'));
-console.log('morgan abilitado');
+//Uso de middleware de terceros- Morgan
+if(app.get('env')==='development'){
+    app.use(morgan('tiny'));
+    // console.log('morgan abilitado');
+    inicioDebug('morgan abilitado');
+}
 
 app.use(function(req,res,next){
     console.log('Autenticando ...');

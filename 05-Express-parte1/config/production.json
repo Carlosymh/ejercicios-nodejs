@@ -1,5 +1,5 @@
 {
-    "name":"API Rest Express -Production",
+    "name":"API Rest Express - Production",
     "configBD":{
         "host":"prod-db-server"
     }
